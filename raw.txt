@@ -209,7 +209,7 @@ CharColorPicker.Callback = function(Value)
 end
 
 -- ═══════════════════════════════════════════════════════════════
---  TAB : MAIN (Menggantikan Combat)
+--  TAB 2 : MAIN
 -- ═══════════════════════════════════════════════════════════════
 local MainTab = Window:CreateTab({
     Name        = "Main",
@@ -218,14 +218,14 @@ local MainTab = Window:CreateTab({
     ShowTitle   = true
 })
 
--- ── Auto Farming ──────────────────────────────────────────────
-MainTab:CreateSection("Auto Farming")
+-- ────────────────────────────────────────────────
+MainTab:CreateSection("Fram")
 
-local InfWinsToggle = MainTab:CreateToggle({
-    Name         = "Infinite Wins (TP Loop)",
-    Description  = "Teleport ke Button Wins secara otomatis.",
+local Inf WinsToggle = MainTab:CreateToggle({
+    Name         = "★ Inf Wins",
+    Description  = "Auto Wins",
     CurrentValue = false,
-    Callback     = function(Value)
+    Callback     = function(Value) 
         _G.InfWins = Value
         task.spawn(function()
             while _G.InfWins do
@@ -243,9 +243,9 @@ local InfWinsToggle = MainTab:CreateToggle({
     end
 }, "InfWins")
 
-local AutoRebirthToggle = MainTab:CreateToggle({
-    Name         = "Auto Rebirth",
-    Description  = "Melakukan rebirth secara otomatis.",
+local Inf RebirthToggle = MinTab:CreateToggle({
+    Name         = "★ Rebirth",
+    Description  = "Auto Rebirth",
     CurrentValue = false,
     Callback     = function(Value)
         _G.AutoRebirth = Value
@@ -260,47 +260,6 @@ local AutoRebirthToggle = MainTab:CreateToggle({
 }, "AutoRebirth")
 
 MainTab:CreateDivider()
-
--- ── Kill Aura ───────────────────────────────────────────────
-CombatTab:CreateSection("Kill Aura")
-
-local KillAuraToggle = CombatTab:CreateToggle({
-    Name         = "★ Kill Aura",
-    Description  = "Auto-attack players within the set range.",
-    CurrentValue = false,
-    Callback     = function(Value) _G.KillAura = Value end
-}, "KillAura")
-
-local AuraRangeSlider = CombatTab:CreateSlider({
-    Name         = "Aura Range",
-    Range        = {5, 150},
-    Increment    = 1,
-    CurrentValue = 20,
-    Callback     = function(Value) _G.AuraRange = Value end
-}, "AuraRange")
-
--- ── Target Select (player list dropdown) ────────────────────
-CombatTab:CreateSection("Target Selection")
-
-local TargetDropdown = CombatTab:CreateDropdown({
-    Name          = "Target Player",
-    Description   = "Leave on Nearest for auto-targeting.",
-    Options       = {},
-    CurrentOption = {},
-    MultipleOptions = false,
-    SpecialType   = "Player",   -- ← auto-populates with player names!
-    Callback      = function(Option) _G.TargetPlayer = Option end
-}, "TargetPlayer")
-
--- ═══════════════════════════════════════════════════════════════
---  TAB 3 : VISUALS / ESP
--- ═══════════════════════════════════════════════════════════════
-local VisualTab = Window:CreateTab({
-    Name        = "Visuals",
-    Icon        = "visibility",
-    ImageSource = "Material",
-    ShowTitle   = true
-})
 
 -- ── ESP ─────────────────────────────────────────────────────
 VisualTab:CreateSection("Player ESP")
