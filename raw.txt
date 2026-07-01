@@ -21,12 +21,12 @@ local Luna = loadstring(game:HttpGet(
 --  2. CREATE WINDOW  (with loading screen + key system)
 -- ──────────────────────────────────────────────────────────────
 local Window = Luna:CreateWindow({
-    Name      = "Universal Hub",
-    Subtitle  = "v2.0  ·  Beta 6.1",
+    Name      = "+1 Speed Monkey Escape",
+    Subtitle  = "Made Nexzan",
     LogoID = "82795327169782",   -- use Luna's own logo from the docs example
     LoadingEnabled  = true,
-    LoadingTitle    = "Universal Hub",
-    LoadingSubtitle = "Preparing your experience...",
+    LoadingTitle    = "Loading",
+    LoadingSubtitle = "Nexzan Hub",
 
     ConfigSettings = {
         RootFolder   = nil,            -- omit unless you run a multi-game hub
@@ -35,15 +35,15 @@ local Window = Luna:CreateWindow({
 
     KeySystem = true,
     KeySettings = {
-        Title      = "Universal Hub  —  Key Required",
+        Title      = "Nexzan Hub  —  Key Required",
         Subtitle   = "Authentication",
-        Note       = "Join our Discord to obtain your key. In production, use a HWID system (Pelican / Luarmor) instead of a static string.",
+        Note       = "Tonton Video Saya Di YouTube Untuk Key",
         SaveInRoot = false,
         SaveKey    = true,
         Key        = {"example"},
         SecondAction = {
             Enabled   = true,
-            Type      = "Discord",      -- "Discord" | "Link"
+            Type      = "YouTube",      -- "Discord" | "Link"
             Parameter = "yourInviteCode"  -- discord invite code only (no discord.gg/)
         }
     }
