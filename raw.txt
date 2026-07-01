@@ -39,8 +39,8 @@ local Window = Luna:CreateWindow({
         Subtitle   = "Authentication",
         Note       = "Tonton Video Saya Di YouTube Untuk Key",
         SaveInRoot = false,
-        SaveKey    = true,
-        Key        = {"example"},
+        SaveKey    = false,
+        Key        = {"+1 Speed Monkey Escape"},
         SecondAction = {
             Enabled   = true,
             Type      = "YouTube",      -- "Discord" | "Link"
@@ -209,44 +209,57 @@ CharColorPicker.Callback = function(Value)
 end
 
 -- ═══════════════════════════════════════════════════════════════
---  TAB 2 : COMBAT
+--  TAB : MAIN (Menggantikan Combat)
 -- ═══════════════════════════════════════════════════════════════
-local CombatTab = Window:CreateTab({
-    Name        = "Combat",
-    Icon        = "gps_fixed",
+local MainTab = Window:CreateTab({
+    Name        = "Main",
+    Icon        = "rocket_launch", -- Ikon untuk fitur utama[span_1](start_span)[span_1](end_span)
     ImageSource = "Material",
     ShowTitle   = true
 })
 
--- ── Silent Aim ──────────────────────────────────────────────
-CombatTab:CreateSection("Silent Aim")
+-- ── Auto Farming ──────────────────────────────────────────────
+MainTab:CreateSection("Auto Farming")
 
-local SilentAimToggle = CombatTab:CreateToggle({
-    Name         = "★ Silent Aim",
-    Description  = "Redirect shots toward the nearest player.",
+local InfWinsToggle = MainTab:CreateToggle({
+    Name         = "Infinite Wins (TP Loop)",
+    Description  = "Teleport ke Button Wins secara otomatis.",
     CurrentValue = false,
-    Callback     = function(Value) _G.SilentAim = Value end
-}, "SilentAim")
+    Callback     = function(Value)
+        _G.InfWins = Value
+        task.spawn(function()
+            while _G.InfWins do
+                local char = game.Players.LocalPlayer.Character
+                -- Path disesuaikan untuk game Monkey Escape
+                local button = game.Workspace:FindFirstChild("NormalWin", true) 
+                    and game.Workspace:FindFirstChild("NormalWin", true):FindFirstChild("Button")
+                
+                if char and char:FindFirstChild("HumanoidRootPart") and button then
+                    char.HumanoidRootPart.CFrame = button.CFrame
+                end
+                task.wait(0.2)
+            end
+        end)
+    end
+}, "InfWins")
 
-local AimPartDropdown = CombatTab:CreateDropdown({
-    Name          = "Target Part",
-    Description   = "Which body part to aim at.",
-    Options       = {"Head", "UpperTorso", "LowerTorso", "HumanoidRootPart"},
-    CurrentOption = {"Head"},
-    MultipleOptions = false,
-    SpecialType   = nil,
-    Callback      = function(Option) _G.AimPart = Option end
-}, "AimPart")
+local AutoRebirthToggle = MainTab:CreateToggle({
+    Name         = "Auto Rebirth",
+    Description  = "Melakukan rebirth secara otomatis.",
+    CurrentValue = false,
+    Callback     = function(Value)
+        _G.AutoRebirth = Value
+        task.spawn(function()
+            while _G.AutoRebirth do
+                local remote = game:GetService("ReplicatedStorage"):FindFirstChild("Rebirth", true)
+                if remote then remote:FireServer() end
+                task.wait(1)
+            end
+        end)
+    end
+}, "AutoRebirth")
 
-local FOVSlider = CombatTab:CreateSlider({
-    Name         = "Aim FOV",
-    Range        = {10, 600},
-    Increment    = 10,
-    CurrentValue = 120,
-    Callback     = function(Value) _G.AimFOV = Value end
-}, "AimFOV")
-
-CombatTab:CreateDivider()
+MainTab:CreateDivider()
 
 -- ── Kill Aura ───────────────────────────────────────────────
 CombatTab:CreateSection("Kill Aura")
