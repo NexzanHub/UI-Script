@@ -21,11 +21,11 @@ local Luna = loadstring(game:HttpGet(
 --  2. CREATE WINDOW  (with loading screen + key system)
 -- ──────────────────────────────────────────────────────────────
 local Window = Luna:CreateWindow({
-    Name      = "Universal Hub",
-    Subtitle  = "v2.0  ·  Beta 6.1",
-    LogoID = "82795327169782",   -- use Luna's own logo from the docs example
+    Name      = "+1 Speed Monkey Escape",
+    Subtitle  = "Made Nexzan",
+    LogoID = "94703576073885",   -- use Luna's own logo from the docs example
     LoadingEnabled  = true,
-    LoadingTitle    = "Universal Hub",
+    LoadingTitle    = "+1 Speed Monkey Escape",
     LoadingSubtitle = "Preparing your experience...",
 
     ConfigSettings = {
@@ -40,7 +40,7 @@ local Window = Luna:CreateWindow({
         Note       = "Join our Discord to obtain your key. In production, use a HWID system (Pelican / Luarmor) instead of a static string.",
         SaveInRoot = false,
         SaveKey    = true,
-        Key        = {"example"},
+        Key        = +1 Speed Monkey Escape,
         SecondAction = {
             Enabled   = true,
             Type      = "Discord",      -- "Discord" | "Link"
