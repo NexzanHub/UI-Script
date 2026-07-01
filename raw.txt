@@ -213,7 +213,7 @@ end
 -- ═══════════════════════════════════════════════════════════════
 local MainTab = Window:CreateTab({
     Name        = "Main",
-    Icon        = "rocket_launch", -- Ikon untuk fitur utama[span_1](start_span)[span_1](end_span)
+    Icon        = "gps_fixed",
     ImageSource = "Material",
     ShowTitle   = true
 })
