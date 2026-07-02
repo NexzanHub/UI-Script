@@ -21,7 +21,7 @@ function Library:CreateWindow(UiTitle)
 	MinimizedBtn.Size = UDim2.new(0, 130, 0, 30)
 	MinimizedBtn.Position = UDim2.new(0.5, -65, 0, 10)
 	MinimizedBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-	MinimizedBtn.Text = "Open Nexzan UI"
+	MinimizedBtn.Text = "🚀 Open Nexzan UI"
 	MinimizedBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 	MinimizedBtn.Font = Enum.Font.SourceSansBold
 	MinimizedBtn.TextSize = 13
