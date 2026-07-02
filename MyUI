@@ -1,0 +1,457 @@
+local Library = {}
+
+function Library:CreateWindow(UiTitle)
+	local Players = game:GetService("Players")
+	local MarketplaceService = game:GetService("MarketplaceService")
+	local TweenService = game:GetService("TweenService")
+	local RunService = game:GetService("RunService")
+
+	local Player = Players.LocalPlayer
+
+	-- Main Container
+	local ScreenGui = Instance.new("ScreenGui")
+	ScreenGui.Name = "NexzanPremiumUiLib"
+	ScreenGui.Parent = Player:WaitForChild("PlayerGui")
+	ScreenGui.ResetOnSpawn = false
+
+	---------------------------------------------------------
+	-- [ TOMBOL MINIMIZE ]
+	---------------------------------------------------------
+	local MinimizedBtn = Instance.new("TextButton")
+	MinimizedBtn.Size = UDim2.new(0, 130, 0, 30)
+	MinimizedBtn.Position = UDim2.new(0.5, -65, 0, 10)
+	MinimizedBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	MinimizedBtn.Text = "🌙 Open Nexzan UI"
+	MinimizedBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	MinimizedBtn.Font = Enum.Font.SourceSansBold
+	MinimizedBtn.TextSize = 13
+	MinimizedBtn.Visible = false
+	MinimizedBtn.Active = true
+	MinimizedBtn.Draggable = true
+	MinimizedBtn.Parent = ScreenGui
+
+	Instance.new("UICorner", MinimizedBtn).CornerRadius = UDim.new(0, 6)
+	local MinStroke = Instance.new("UIStroke", MinimizedBtn)
+	MinStroke.Color = Color3.fromRGB(70, 70, 70)
+
+	---------------------------------------------------------
+	-- [ MAIN WINDOW FRAME ]
+	---------------------------------------------------------
+	local MainWindow = Instance.new("Frame")
+	MainWindow.Size = UDim2.new(0, 550, 0, 330)
+	MainWindow.Position = UDim2.new(0.5, -275, 0.5, -165)
+	MainWindow.BackgroundColor3 = Color3.fromRGB(255, 255, 255) -- Base putih untuk dicampur transparansi gelap
+	MainWindow.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	MainWindow.BackgroundTransparency = 0.15
+	MainWindow.Active = true
+	MainWindow.Draggable = true
+	MainWindow.Parent = ScreenGui
+
+	Instance.new("UICorner", MainWindow).CornerRadius = UDim.new(0, 10)
+
+	local RainbowStroke = Instance.new("UIStroke", MainWindow)
+	RainbowStroke.Thickness = 2
+	RainbowStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+	RunService.RenderStepped:Connect(function()
+		local Hue = (tick() % 5) / 5
+		RainbowStroke.Color = Color3.fromHSV(Hue, 0.8, 1)
+	end)
+
+	---------------------------------------------------------
+	-- [ CONTROL BUTTONS ]
+	---------------------------------------------------------
+	local ControlContainer = Instance.new("Frame")
+	ControlContainer.Size = UDim2.new(0, 60, 0, 25)
+	ControlContainer.Position = UDim2.new(1, -65, 0, 8)
+	ControlContainer.BackgroundTransparency = 1
+	ControlContainer.Parent = MainWindow
+
+	local BtnMinimize = Instance.new("TextButton")
+	local BtnClose = Instance.new("TextButton")
+
+	BtnMinimize.Size = UDim2.new(0, 22, 0, 22)
+	BtnMinimize.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	BtnMinimize.Text = "-"
+	BtnMinimize.TextColor3 = Color3.fromRGB(255, 255, 255)
+	BtnMinimize.Font = Enum.Font.SourceSansBold
+	BtnMinimize.Parent = ControlContainer
+	Instance.new("UICorner", BtnMinimize).CornerRadius = UDim.new(0, 5)
+
+	BtnClose.Size = UDim2.new(0, 22, 0, 22)
+	BtnClose.Position = UDim2.new(0, 26, 0, 0)
+	BtnClose.BackgroundColor3 = Color3.fromRGB(150, 40, 40)
+	BtnClose.Text = "X"
+	BtnClose.TextColor3 = Color3.fromRGB(255, 255, 255)
+	BtnClose.Font = Enum.Font.SourceSansBold
+	BtnClose.Parent = ControlContainer
+	Instance.new("UICorner", BtnClose).CornerRadius = UDim.new(0, 5)
+
+	BtnMinimize.MouseButton1Click:Connect(function() MainWindow.Visible = false MinimizedBtn.Visible = true end)
+	MinimizedBtn.MouseButton1Click:Connect(function() MinimizedBtn.Visible = false MainWindow.Visible = true end)
+	BtnClose.MouseButton1Click:Connect(function() ScreenGui:Destroy() end)
+
+	---------------------------------------------------------
+	-- [ SIDEBAR CONTAINER ]
+	---------------------------------------------------------
+	local Sidebar = Instance.new("Frame")
+	Sidebar.Size = UDim2.new(0, 180, 1, 0)
+	Sidebar.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+	Sidebar.BackgroundTransparency = 0.1
+	Sidebar.BorderSizePixel = 0
+	Sidebar.Parent = MainWindow
+	Instance.new("UICorner", Sidebar).CornerRadius = UDim.new(0, 10)
+
+	local SidebarPatch = Instance.new("Frame", Sidebar)
+	SidebarPatch.Size = UDim2.new(0, 15, 1, 0)
+	SidebarPatch.Position = UDim2.new(1, -15, 0, 0)
+	SidebarPatch.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+	SidebarPatch.BackgroundTransparency = 0.1
+	SidebarPatch.BorderSizePixel = 0
+
+	local Header = Instance.new("Frame", Sidebar)
+	Header.Size = UDim2.new(1, 0, 0, 55)
+	Header.BackgroundTransparency = 1
+
+	local GameTitle = Instance.new("TextLabel", Header)
+	GameTitle.Size = UDim2.new(1, -15, 0, 18)
+	GameTitle.Position = UDim2.new(0, 12, 0, 10)
+	GameTitle.Text = UiTitle or "Nexzan Premium"
+	GameTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+	GameTitle.TextSize = 12
+	GameTitle.Font = Enum.Font.SourceSansBold
+	GameTitle.TextXAlignment = Enum.TextXAlignment.Left
+	GameTitle.TextTruncate = Enum.TextTruncate.AtEnd
+	GameTitle.BackgroundTransparency = 1
+
+	local AuthorContainer = Instance.new("Frame", Header)
+	AuthorContainer.Size = UDim2.new(1, -15, 0, 14)
+	AuthorContainer.Position = UDim2.new(0, 12, 0, 28)
+	AuthorContainer.BackgroundTransparency = 1
+
+	local AuthorLayout = Instance.new("UIListLayout", AuthorContainer)
+	AuthorLayout.FillDirection = Enum.FillDirection.Horizontal
+	AuthorLayout.Padding = UDim.new(0, 5)
+	AuthorLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+
+	local AuthorLabel = Instance.new("TextLabel", AuthorContainer)
+	AuthorLabel.AutomaticSize = Enum.AutomaticSize.X
+	AuthorLabel.Size = UDim2.new(0, 0, 1, 0)
+	AuthorLabel.Text = "Made Nexzan"
+	AuthorLabel.TextColor3 = Color3.fromRGB(160, 160, 160)
+	AuthorLabel.TextSize = 11
+	AuthorLabel.Font = Enum.Font.SourceSans
+	AuthorLabel.BackgroundTransparency = 1
+
+	local VerifiedIcon = Instance.new("ImageLabel", AuthorContainer)
+	VerifiedIcon.Size = UDim2.new(0, 10, 0, 10)
+	VerifiedIcon.Image = "rbxassetid://4732109923"
+	VerifiedIcon.ImageColor3 = Color3.fromRGB(57, 137, 243)
+	VerifiedIcon.BackgroundTransparency = 1
+
+	local LineHeader = Instance.new("Frame", Sidebar)
+	LineHeader.Size = UDim2.new(1, -20, 0, 1)
+	LineHeader.Position = UDim2.new(0, 10, 0, 54)
+	LineHeader.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+	LineHeader.BorderSizePixel = 0
+
+	local TabContainer = Instance.new("ScrollingFrame", Sidebar)
+	TabContainer.Size = UDim2.new(1, 0, 1, -125)
+	TabContainer.Position = UDim2.new(0, 0, 0, 60)
+	TabContainer.BackgroundTransparency = 1
+	TabContainer.ScrollBarThickness = 0
+
+	local TabListLayout = Instance.new("UIListLayout", TabContainer)
+	TabListLayout.Padding = UDim.new(0, 4)
+	TabListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+	---------------------------------------------------------
+	-- [ FOOTER AVATAR PROFILE ]
+	---------------------------------------------------------
+	local Footer = Instance.new("Frame", Sidebar)
+	Footer.Size = UDim2.new(1, -16, 0, 45)
+	Footer.Position = UDim2.new(0, 8, 1, -53)
+	Footer.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	Footer.BorderColor3 = Color3.fromRGB(70, 70, 70)
+	Instance.new("UICorner", Footer).CornerRadius = UDim.new(0, 6)
+
+	local AvatarImg = Instance.new("ImageLabel", Footer)
+	AvatarImg.Size = UDim2.new(0, 28, 0, 28)
+	AvatarImg.Position = UDim2.new(0, 8, 0.5, -14)
+	AvatarImg.Image = "rbxthumb://type=AvatarHeadShot&id="..Player.UserId.."&w=150&h=150"
+	Instance.new("UICorner", AvatarImg).CornerRadius = UDim.new(1, 0)
+
+	local DisplayNameLabel = Instance.new("TextLabel", Footer)
+	DisplayNameLabel.Size = UDim2.new(1, -45, 0, 14)
+	DisplayNameLabel.Position = UDim2.new(0, 42, 0, 6)
+	DisplayNameLabel.Text = Player.DisplayName
+	DisplayNameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	DisplayNameLabel.Font = Enum.Font.SourceSansBold
+	DisplayNameLabel.TextSize = 12
+	DisplayNameLabel.TextXAlignment = Enum.TextXAlignment.Left
+	DisplayNameLabel.BackgroundTransparency = 1
+
+	local UsernameLabel = Instance.new("TextLabel", Footer)
+	UsernameLabel.Size = UDim2.new(1, -45, 0, 12)
+	UsernameLabel.Position = UDim2.new(0, 42, 0, 20)
+	UsernameLabel.Text = "@" .. Player.Name
+	UsernameLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
+	UsernameLabel.Font = Enum.Font.SourceSans
+	UsernameLabel.TextSize = 10
+	UsernameLabel.TextXAlignment = Enum.TextXAlignment.Left
+	UsernameLabel.BackgroundTransparency = 1
+
+	---------------------------------------------------------
+	-- [ PAGES HOLDER MULTI-TAB ]
+	---------------------------------------------------------
+	local PagesHolder = Instance.new("Frame", MainWindow)
+	PagesHolder.Size = UDim2.new(1, -195, 1, -45)
+	PagesHolder.Position = UDim2.new(0, 188, 0, 35)
+	PagesHolder.BackgroundTransparency = 1
+
+	local Pages = {}
+	local Tabs = {}
+	local FirstTab = nil
+
+	local function SwitchToTab(tabName)
+		for name, page in pairs(Pages) do page.Visible = (name == tabName) end
+		for name, btn in pairs(Tabs) do
+			if name == tabName then
+				btn.BackgroundTransparency = 0.8
+				btn.TabLayout.Txt.TextColor3 = Color3.fromRGB(255, 255, 255)
+			else
+				btn.BackgroundTransparency = 1
+				btn.TabLayout.Txt.TextColor3 = Color3.fromRGB(180, 180, 180)
+			end
+		end
+	end
+
+	local WindowFunctions = {}
+
+	-- Fungsi Tambah Tab Baru
+	function WindowFunctions:CreateTab(tabName, iconId)
+		local TabBtn = Instance.new("TextButton", TabContainer)
+		TabBtn.Size = UDim2.new(1, -16, 0, 32)
+		TabBtn.BackgroundTransparency = 1
+		TabBtn.Text = ""
+		Instance.new("UICorner", TabBtn).CornerRadius = UDim.new(0, 4)
+		
+		local TabLayout = Instance.new("Frame", TabBtn)
+		TabLayout.Name = "TabLayout"
+		TabLayout.Size = UDim2.new(1, 0, 1, 0)
+		TabLayout.BackgroundTransparency = 1
+
+		local Icon = Instance.new("ImageLabel", TabLayout)
+		Icon.Size = UDim2.new(0, 14, 0, 14)
+		Icon.Position = UDim2.new(0, 10, 0.5, -7)
+		Icon.Image = iconId or "rbxassetid://4483362458"
+		Icon.BackgroundTransparency = 1
+		
+		local Txt = Instance.new("TextLabel", TabLayout)
+		Txt.Name = "Txt"
+		Txt.Size = UDim2.new(1, -35, 1, 0)
+		Txt.Position = UDim2.new(0, 30, 0, 0)
+		Txt.Text = tabName
+		Txt.TextColor3 = Color3.fromRGB(180, 180, 180)
+		Txt.TextSize = 12
+		Txt.Font = Enum.Font.SourceSansSemibold
+		Txt.TextXAlignment = Enum.TextXAlignment.Left
+		Txt.BackgroundTransparency = 1
+
+		-- Buat Page untuk tab ini
+		local ContentPage = Instance.new("ScrollingFrame", PagesHolder)
+		ContentPage.Size = UDim2.new(1, 0, 1, 0)
+		ContentPage.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+		ContentPage.BackgroundTransparency = 0.2
+		ContentPage.ScrollBarThickness = 3
+		ContentPage.Visible = false
+		Instance.new("UICorner", ContentPage).CornerRadius = UDim.new(0, 8)
+
+		local ContentLayout = Instance.new("UIListLayout", ContentPage)
+		ContentLayout.Padding = UDim.new(0, 8)
+		ContentLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+		Instance.new("UIPadding", ContentPage).PaddingTop = UDim.new(0, 8)
+		
+		Pages[tabName] = ContentPage
+		Tabs[tabName] = TabBtn
+
+		if not FirstTab then
+			FirstTab = tabName
+			ContentPage.Visible = true
+			TabBtn.BackgroundTransparency = 0.8
+			Txt.TextColor3 = Color3.fromRGB(255, 255, 255)
+		end
+
+		TabBtn.MouseButton1Click:Connect(function() SwitchToTab(tabName) end)
+
+		local TabFunctions = {}
+
+		-- Fungsi Membuat Button
+		function TabFunctions:CreateButton(text, desc, callback)
+			local FeatureFrame = Instance.new("Frame", ContentPage)
+			FeatureFrame.Size = UDim2.new(1, -16, 0, 46)
+			FeatureFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+			FeatureFrame.BackgroundTransparency = 0.3
+			Instance.new("UICorner", FeatureFrame).CornerRadius = UDim.new(0, 5)
+			Instance.new("UIStroke", FeatureFrame).Color = Color3.fromRGB(70, 70, 70)
+			
+			local Title = Instance.new("TextLabel", FeatureFrame)
+			Title.Size = UDim2.new(0.7, 0, 0, 18)
+			Title.Position = UDim2.new(0, 10, 0, 5)
+			Title.Text = text
+			Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title.Font = Enum.Font.SourceSansBold
+			Title.TextSize = 13
+			Title.TextXAlignment = Enum.TextXAlignment.Left
+			Title.BackgroundTransparency = 1
+
+			local Description = Instance.new("TextLabel", FeatureFrame)
+			Description.Size = UDim2.new(0.7, 0, 0, 14)
+			Description.Position = UDim2.new(0, 10, 0, 23)
+			Description.Text = desc
+			Description.TextColor3 = Color3.fromRGB(150, 150, 150)
+			Description.Font = Enum.Font.SourceSans
+			Description.TextSize = 11
+			Description.TextXAlignment = Enum.TextXAlignment.Left
+			Description.BackgroundTransparency = 1
+			
+			local ActionBtn = Instance.new("TextButton", FeatureFrame)
+			ActionBtn.Size = UDim2.new(0, 65, 0, 24)
+			ActionBtn.Position = UDim2.new(1, -75, 0.5, -12)
+			ActionBtn.BackgroundColor3 = Color3.fromRGB(57, 137, 243)
+			ActionBtn.Text = "RUN"
+			ActionBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+			ActionBtn.Font = Enum.Font.SourceSansBold
+			ActionBtn.TextSize = 11
+			Instance.new("UICorner", ActionBtn).CornerRadius = UDim.new(0, 4)
+			
+			ActionBtn.MouseButton1Click:Connect(callback)
+		end
+
+		-- Fungsi Membuat Toggle (Switch Animasi)
+		function TabFunctions:CreateToggle(text, desc, default, callback)
+			local FeatureFrame = Instance.new("Frame", ContentPage)
+			FeatureFrame.Size = UDim2.new(1, -16, 0, 46)
+			FeatureFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+			FeatureFrame.BackgroundTransparency = 0.3
+			Instance.new("UICorner", FeatureFrame).CornerRadius = UDim.new(0, 5)
+			Instance.new("UIStroke", FeatureFrame).Color = Color3.fromRGB(70, 70, 70)
+			
+			local Title = Instance.new("TextLabel", FeatureFrame)
+			Title.Size = UDim2.new(0.7, 0, 0, 18)
+			Title.Position = UDim2.new(0, 10, 0, 5)
+			Title.Text = text
+			Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title.Font = Enum.Font.SourceSansBold
+			Title.TextSize = 13
+			Title.TextXAlignment = Enum.TextXAlignment.Left
+			Title.BackgroundTransparency = 1
+
+			local Description = Instance.new("TextLabel", FeatureFrame)
+			Description.Size = UDim2.new(0.7, 0, 0, 14)
+			Description.Position = UDim2.new(0, 10, 0, 23)
+			Description.Text = desc
+			Description.TextColor3 = Color3.fromRGB(150, 150, 150)
+			Description.Font = Enum.Font.SourceSans
+			Description.TextSize = 11
+			Description.TextXAlignment = Enum.TextXAlignment.Left
+			Description.BackgroundTransparency = 1
+
+			local ToggleBg = Instance.new("TextButton", FeatureFrame)
+			ToggleBg.Size = UDim2.new(0, 36, 0, 20)
+			ToggleBg.Position = UDim2.new(1, -46, 0.5, -10)
+			ToggleBg.BackgroundColor3 = default and Color3.fromRGB(57, 137, 243) or Color3.fromRGB(60, 60, 60)
+			ToggleBg.Text = ""
+			Instance.new("UICorner", ToggleBg).CornerRadius = UDim.new(1, 0)
+
+			local ToggleBall = Instance.new("Frame", ToggleBg)
+			ToggleBall.Size = UDim2.new(0, 14, 0, 14)
+			ToggleBall.Position = default and UDim2.new(1, -17, 0.5, -7) or UDim2.new(0, 3, 0.5, -7)
+			ToggleBall.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Instance.new("UICorner", ToggleBall).CornerRadius = UDim.new(1, 0)
+
+			local IsOn = default
+			ToggleBg.MouseButton1Click:Connect(function()
+				IsOn = not IsOn
+				local targetPos = IsOn and UDim2.new(1, -17, 0.5, -7) or UDim2.new(0, 3, 0.5, -7)
+				local targetColor = IsOn and Color3.fromRGB(57, 137, 243) or Color3.fromRGB(60, 60, 60)
+				
+				TweenService:Create(ToggleBall, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {Position = targetPos}):Play()
+				TweenService:Create(ToggleBg, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {BackgroundColor3 = targetColor}):Play()
+				
+				callback(IsOn)
+			end)
+		end
+
+		-- Fungsi Membuat Dropdown
+		function TabFunctions:CreateDropdown(text, options, callback)
+			local DropdownFrame = Instance.new("Frame", ContentPage)
+			DropdownFrame.Size = UDim2.new(1, -16, 0, 40)
+			DropdownFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+			DropdownFrame.BackgroundTransparency = 0.3
+			DropdownFrame.ClipsDescendants = true
+			Instance.new("UICorner", DropdownFrame).CornerRadius = UDim.new(0, 5)
+			Instance.new("UIStroke", DropdownFrame).Color = Color3.fromRGB(70, 70, 70)
+
+			local Title = Instance.new("TextLabel", DropdownFrame)
+			Title.Size = UDim2.new(0.5, 0, 0, 40)
+			Title.Position = UDim2.new(0, 10, 0, 0)
+			Title.Text = text
+			Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+			Title.Font = Enum.Font.SourceSansBold
+			Title.TextSize = 13
+			Title.TextXAlignment = Enum.TextXAlignment.Left
+			Title.BackgroundTransparency = 1
+
+			local OpenBtn = Instance.new("TextButton", DropdownFrame)
+			OpenBtn.Size = UDim2.new(0, 100, 0, 24)
+			OpenBtn.Position = UDim2.new(1, -110, 0, 8)
+			OpenBtn.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+			OpenBtn.Text = options[1] or "Select..."
+			OpenBtn.TextColor3 = Color3.fromRGB(220, 220, 220)
+			OpenBtn.Font = Enum.Font.SourceSans
+			OpenBtn.TextSize = 12
+			Instance.new("UICorner", OpenBtn).CornerRadius = UDim.new(0, 4)
+
+			local ContainerOptions = Instance.new("Frame", DropdownFrame)
+			ContainerOptions.Size = UDim2.new(1, -20, 0, #options * 25)
+			ContainerOptions.Position = UDim2.new(0, 10, 0, 45)
+			ContainerOptions.BackgroundTransparency = 1
+
+			local DropLayout = Instance.new("UIListLayout", ContainerOptions)
+			DropLayout.Padding = UDim.new(0, 2)
+
+			local IsExpanded = false
+			OpenBtn.MouseButton1Click:Connect(function()
+				IsExpanded = not IsExpanded
+				local targetHeight = IsExpanded and (45 + (#options * 25) + 5) or 40
+				TweenService:Create(DropdownFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {Size = UDim2.new(1, -16, 0, targetHeight)}):Play()
+			end)
+
+			for _, optName in ipairs(options) do
+				local OptBtn = Instance.new("TextButton", ContainerOptions)
+				OptBtn.Size = UDim2.new(1, 0, 0, 22)
+				OptBtn.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+				OptBtn.Text = optName
+				OptBtn.TextColor3 = Color3.fromRGB(200, 200, 200)
+				OptBtn.Font = Enum.Font.SourceSans
+				OptBtn.TextSize = 12
+				Instance.new("UICorner", OptBtn).CornerRadius = UDim.new(0, 3)
+
+				OptBtn.MouseButton1Click:Connect(function()
+					OpenBtn.Text = optName
+					IsExpanded = false
+					TweenService:Create(DropdownFrame, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {Size = UDim2.new(1, -16, 0, 40)}):Play()
+					callback(optName)
+				end)
+			end
+		end
+
+		return TabFunctions
+	end
+
+	return WindowFunctions
+end
+
+return Library
