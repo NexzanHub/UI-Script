@@ -108,7 +108,7 @@ function Library:CreateWindow(UiTitle)
 		Corner.CornerRadius = UDim.new(0, 8)
 
 		local Stroke = Instance.new("UIStroke", NotifFrame)
-		Stroke.Color = Color3.fromRGB(255, 255, 255) -- Stroke Putih sesuai request
+		Stroke.Color = Color3.fromRGB(35, 35, 35) -- Stroke Putih sesuai request
 		Stroke.Thickness = 1
 
 		local TitleLabel = Instance.new("TextLabel")
@@ -167,7 +167,7 @@ function Library:CreateWindow(UiTitle)
 
 	Instance.new("UICorner", MinimizedBtn).CornerRadius = UDim.new(0, 8)
 	local MinStroke = Instance.new("UIStroke", MinimizedBtn)
-	MinStroke.Color = Color3.fromRGB(255, 255, 255) -- Stroke Putih sesuai request
+	MinStroke.Color = Color3.fromRGB(35, 35, 35) -- Stroke Putih sesuai request
 	MinStroke.Thickness = 1.5
 	MakeDraggable(MinimizedBtn)
 
@@ -479,7 +479,7 @@ function Library:CreateWindow(UiTitle)
 			Instance.new("UICorner", FeatureFrame).CornerRadius = UDim.new(0, 5)
 			
 			local BtnStroke = Instance.new("UIStroke", FeatureFrame)
-			BtnStroke.Color = Color3.fromRGB(255, 255, 255) -- Diubah ke Putih bersih
+			BtnStroke.Color = Color3.fromRGB(35, 35, 35) -- Diubah ke Putih bersih
 			BtnStroke.Thickness = 1
 			
 			local Title = Instance.new("TextLabel", FeatureFrame)
@@ -544,7 +544,7 @@ function Library:CreateWindow(UiTitle)
 			Instance.new("UICorner", FeatureFrame).CornerRadius = UDim.new(0, 5)
 			
 			local TglStroke = Instance.new("UIStroke", FeatureFrame)
-			TglStroke.Color = Color3.fromRGB(255, 255, 255) -- Diubah ke Putih bersih
+			TglStroke.Color = Color3.fromRGB(35, 35, 35) -- Diubah ke Putih bersih
 			TglStroke.Thickness = 1
 			
 			local Title = Instance.new("TextLabel", FeatureFrame)
@@ -605,7 +605,7 @@ function Library:CreateWindow(UiTitle)
 			Instance.new("UICorner", SliderFrame).CornerRadius = UDim.new(0, 5)
 			
 			local SldStroke = Instance.new("UIStroke", SliderFrame)
-			SldStroke.Color = Color3.fromRGB(255, 255, 255) -- Diubah ke Putih bersih
+			SldStroke.Color = Color3.fromRGB(35, 35, 35) -- Diubah ke Putih bersih
 			SldStroke.Thickness = 1
 
 			local Title = Instance.new("TextLabel", SliderFrame)
@@ -685,7 +685,7 @@ function Library:CreateWindow(UiTitle)
 			Instance.new("UICorner", DropdownFrame).CornerRadius = UDim.new(0, 5)
 			
 			local DropStroke = Instance.new("UIStroke", DropdownFrame)
-			DropStroke.Color = Color3.fromRGB(255, 255, 255) -- Diubah ke Putih bersih
+			DropStroke.Color = Color3.fromRGB(35, 35, 35) -- Diubah ke Putih bersih
 			DropStroke.Thickness = 1
 
 			local Title = Instance.new("TextLabel", DropdownFrame)
@@ -760,7 +760,7 @@ function Library:CreateWindow(UiTitle)
 			Instance.new("UICorner", InputFrame).CornerRadius = UDim.new(0, 5)
 			
 			local BoxFrameStroke = Instance.new("UIStroke", InputFrame)
-			BoxFrameStroke.Color = Color3.fromRGB(255, 255, 255) -- Diubah ke Putih bersih
+			BoxFrameStroke.Color = Color3.fromRGB(35, 35, 35) -- Diubah ke Putih bersih
 			BoxFrameStroke.Thickness = 1
 
 			local Title = Instance.new("TextLabel", InputFrame)
@@ -809,7 +809,7 @@ function Library:CreateWindow(UiTitle)
 			Instance.new("UICorner", KeybindFrame).CornerRadius = UDim.new(0, 5)
 			
 			local KeyStroke = Instance.new("UIStroke", KeybindFrame)
-			KeyStroke.Color = Color3.fromRGB(255, 255, 255) -- Diubah ke Putih bersih
+			KeyStroke.Color = Color3.fromRGB(35, 35, 35) -- Diubah ke Putih bersih
 			KeyStroke.Thickness = 1
 
 			local Title = Instance.new("TextLabel", KeybindFrame)
@@ -895,7 +895,7 @@ function Library:CreateWindow(UiTitle)
 			Instance.new("UICorner", CpFrame).CornerRadius = UDim.new(0, 5)
 			
 			local CpStroke = Instance.new("UIStroke", CpFrame)
-			CpStroke.Color = Color3.fromRGB(255, 255, 255) -- Diubah ke Putih bersih
+			CpStroke.Color = Color3.fromRGB(35, 35, 35) -- Diubah ke Putih bersih
 			CpStroke.Thickness = 1
 
 			local Title = Instance.new("TextLabel", CpFrame)
