@@ -1,4 +1,3 @@
-```lua
 --[[
 ================================================================================
                     NEXZAN PREMIUM UI LIBRARY (v2.0 - ULTIMATE)
@@ -953,5 +952,3 @@ function Library:CreateWindow(UiTitle)
 end
 
 return Library
-
-```
