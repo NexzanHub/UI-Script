@@ -112,7 +112,7 @@ function Library:InitKeySystem(correctKey, callback)
 	Subtitle.Size = UDim2.new(1, 0, 0, 20)
 	Subtitle.Position = UDim2.new(0, 0, 0, 35)
 	Subtitle.BackgroundTransparency = 1
-	Subtitle.Text = "Key di video saya pencet GetKey"
+	Subtitle.Text = "Key?pencet GetKey"
 	Subtitle.TextColor3 = Color3.fromRGB(180, 180, 180)
 	Subtitle.Font = Enum.Font.SourceSansItalic
 	Subtitle.TextSize = 13
@@ -151,7 +151,7 @@ function Library:InitKeySystem(correctKey, callback)
 	local GetKeyBtn = Instance.new("TextButton")
 	GetKeyBtn.Size = UDim2.new(0, 135, 0, 35)
 	GetKeyBtn.Position = UDim2.new(0.76, -67, 0.8, -10)
-	GetKeyBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	GetKeyBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 100)
 	GetKeyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 	GetKeyBtn.Text = "Get Key"
 	GetKeyBtn.Font = Enum.Font.SourceSansBold
@@ -178,13 +178,24 @@ function Library:InitKeySystem(correctKey, callback)
 		end
 	end)
 
-	GetKeyBtn.MouseButton1Click:Connect(function()
-		setclipboard("https://link-key-anda.com") -- Ganti dengan link key system Anda
-		Title.Text = "LINK COPIED TO CLIPBOARD!"
-		task.wait(1.5)
-		Title.Text = "NEXZAN KEY SYSTEM"
-	end)
-end
+GetKeyBtn.MouseButton1Click:Connect(function()
+    -- Script akan mengambil link langsung dari URL Pastebin (Raw)
+    local success, link = pcall(function()
+        return game:HttpGet("https://pastebin.com/raw/Sd6gJskT") -- GANTI INI DENGAN LINK RAW PASTEBIN KAMU
+    end)
+    
+    if success and link then
+        setclipboard(link) -- Menyalin link yang ada di Pastebin
+        local oldText = GetKeyBtn.Text
+        GetKeyBtn.Text = "Link Copied!"
+        task.wait(1.5)
+        GetKeyBtn.Text = oldText
+    else
+        GetKeyBtn.Text = "Error Loading Link"
+        task.wait(2)
+        GetKeyBtn.Text = "Get Key"
+    end
+end)
 
 -- [ MASTER CREATION FUNCTION ]
 function Library:CreateWindow(UiTitle)
