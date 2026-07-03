@@ -61,141 +61,67 @@ local function MakeDraggable(guiObject)
 	end)
 end
 
----------------------------------------------------------
--- [ FUNCTION: INTEGRATED KEY SYSTEM ]
----------------------------------------------------------
-function Library:InitKeySystem(correctKey, callback)
-	local ScreenGui = Instance.new("ScreenGui")
-	ScreenGui.Name = "NexzanKeySystem"
-	ScreenGui.Parent = Player:WaitForChild("PlayerGui")
-	ScreenGui.ResetOnSpawn = false
+	-- KeySystem
 
-	local Frame = Instance.new("Frame")
-	Frame.Size = UDim2.new(0, 360, 0, 220)
-	Frame.Position = UDim2.new(0.5, -180, 0.5, -110)
-	Frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-	Frame.BackgroundTransparency = 0.15
-	Frame.BorderSizePixel = 0
-	Frame.Parent = ScreenGui
+    local Frame = Instance.new("Frame", ScreenGui)
+    Frame.Size = UDim2.new(0, 300, 0, 180)
+    Frame.Position = UDim2.new(0.5, -150, 0.5, -90)
+    Frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    Instance.new("UICorner", Frame).CornerRadius = UDim.new(0, 8)
 
-	local UICorner = Instance.new("UICorner", Frame)
-	UICorner.CornerRadius = UDim.new(0, 10)
-
-	-- Premium Rainbow Border untuk Key System
-	local RainbowStroke = Instance.new("UIStroke", Frame)
-	RainbowStroke.Thickness = 1.8
-	RainbowStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-
-	local rainbowConnection
-	rainbowConnection = RunService.RenderStepped:Connect(function()
-		if not Frame or not Frame.Parent then 
-			rainbowConnection:Disconnect() 
-			return 
-		end
-		local Hue = (tick() % 5) / 5
-		RainbowStroke.Color = Color3.fromHSV(Hue, 0.8, 1)
-	end)
-
-	-- Judul Utama
-	local Title = Instance.new("TextLabel")
-	Title.Size = UDim2.new(1, 0, 0, 30)
-	Title.Position = UDim2.new(0, 0, 0, 10)
-	Title.BackgroundTransparency = 1
-	Title.Text = "NEXZAN KEY SYSTEM"
-	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-	Title.Font = Enum.Font.SourceSansBold
-	Title.TextSize = 18
-	Title.Parent = Frame
-
-	-- Subtitle Sesuai Request Anda
-	local Subtitle = Instance.new("TextLabel")
-	Subtitle.Size = UDim2.new(1, 0, 0, 20)
-	Subtitle.Position = UDim2.new(0, 0, 0, 35)
-	Subtitle.BackgroundTransparency = 1
-	Subtitle.Text = "Key?pencet GetKey"
-	Subtitle.TextColor3 = Color3.fromRGB(180, 180, 180)
-	Subtitle.Font = Enum.Font.SourceSansItalic
-	Subtitle.TextSize = 13
-	Subtitle.Parent = Frame
-
-	-- Input Box
-	local TextBox = Instance.new("TextBox")
-	TextBox.Size = UDim2.new(0, 290, 0, 38)
-	TextBox.Position = UDim2.new(0.5, -145, 0.5, -15)
-	TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-	TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-	TextBox.PlaceholderText = "Enter Key Here..."
-	TextBox.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
-	TextBox.Font = Enum.Font.SourceSans
-	TextBox.TextSize = 14
-	TextBox.Text = ""
-	TextBox.Parent = Frame
-	Instance.new("UICorner", TextBox).CornerRadius = UDim.new(0, 6)
-	
-	local BoxStroke = Instance.new("UIStroke", TextBox)
-	BoxStroke.Color = Color3.fromRGB(60, 60, 60)
-
-	-- Button: Check Key
-	local SubmitBtn = Instance.new("TextButton")
-	SubmitBtn.Size = UDim2.new(0, 135, 0, 35)
-	SubmitBtn.Position = UDim2.new(0.24, -67, 0.8, -10)
-	SubmitBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	SubmitBtn.TextColor3 = Color3.fromRGB(20, 20, 20)
-	SubmitBtn.Text = "Check Key"
-	SubmitBtn.Font = Enum.Font.SourceSansBold
-	SubmitBtn.TextSize = 13
-	SubmitBtn.Parent = Frame
-	Instance.new("UICorner", SubmitBtn).CornerRadius = UDim.new(0, 6)
-
-	-- Button: Get Key
-	local GetKeyBtn = Instance.new("TextButton")
-	GetKeyBtn.Size = UDim2.new(0, 135, 0, 35)
-	GetKeyBtn.Position = UDim2.new(0.76, -67, 0.8, -10)
-	GetKeyBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 100)
-	GetKeyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-	GetKeyBtn.Text = "Get Key"
-	GetKeyBtn.Font = Enum.Font.SourceSansBold
-	GetKeyBtn.TextSize = 13
-	GetKeyBtn.Parent = Frame
-	Instance.new("UICorner", GetKeyBtn).CornerRadius = UDim.new(0, 6)
-
-	MakeDraggable(Frame)
-
-	-- Button Interactions
-	SubmitBtn.MouseButton1Click:Connect(function()
-		if TextBox.Text == correctKey then
-			Title.Text = "ACCESS GRANTED!"
-			Title.TextColor3 = Color3.fromRGB(0, 255, 120)
-			task.wait(1)
-			ScreenGui:Destroy()
-			pcall(callback)
-		else
-			Title.Text = "INVALID KEY! TRY AGAIN."
-			Title.TextColor3 = Color3.fromRGB(255, 80, 80)
-			task.wait(1.5)
-			Title.Text = "NEXZAN KEY SYSTEM"
-			Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-		end
-	end)
-
-GetKeyBtn.MouseButton1Click:Connect(function()
-    -- Script akan mengambil link langsung dari URL Pastebin (Raw)
-    local success, link = pcall(function()
-        return game:HttpGet("https://pastebin.com/raw/Sd6gJskT") -- GANTI INI DENGAN LINK RAW PASTEBIN KAMU
+    -- Rainbow Border
+    local Stroke = Instance.new("UIStroke", Frame)
+    Stroke.Thickness = 2
+    RunService.RenderStepped:Connect(function()
+        Stroke.Color = Color3.fromHSV((tick() % 5) / 5, 0.7, 1)
     end)
-    
-    if success and link then
-        setclipboard(link) -- Menyalin link yang ada di Pastebin
-        local oldText = GetKeyBtn.Text
-        GetKeyBtn.Text = "Link Copied!"
-        task.wait(1.5)
-        GetKeyBtn.Text = oldText
-    else
-        GetKeyBtn.Text = "Error Loading Link"
-        task.wait(2)
-        GetKeyBtn.Text = "Get Key"
-    end
-end)
+
+    local Input = Instance.new("TextBox", Frame)
+    Input.Size = UDim2.new(0, 260, 0, 40)
+    Input.Position = UDim2.new(0.5, -130, 0.3, 0)
+    Input.PlaceholderText = "Masukkan Key..."
+    Input.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    Input.TextColor3 = Color3.new(1, 1, 1)
+    Instance.new("UICorner", Input)
+
+    local CheckBtn = Instance.new("TextButton", Frame)
+    CheckBtn.Size = UDim2.new(0, 120, 0, 35)
+    CheckBtn.Position = UDim2.new(0.25, -60, 0.7, 0)
+    CheckBtn.Text = "Check"
+    CheckBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 100) -- Warna Hijau
+    Instance.new("UICorner", CheckBtn)
+
+    local GetBtn = Instance.new("TextButton", Frame)
+    GetBtn.Size = UDim2.new(0, 120, 0, 35)
+    GetBtn.Position = UDim2.new(0.75, -60, 0.7, 0)
+    GetBtn.Text = "Get Key"
+    GetBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    GetBtn.TextColor3 = Color3.new(1, 1, 1)
+    Instance.new("UICorner", GetBtn)
+
+    -- Event Check
+    CheckBtn.MouseButton1Click:Connect(function()
+        if Input.Text == config.CorrectKey then
+            ScreenGui:Destroy()
+            config.OnSuccess()
+        else
+            Input.Text = "Key Salah!"
+        end
+    end)
+
+    -- Event Get Key (Link diambil dari luar via pastebin/url)
+    GetBtn.MouseButton1Click:Connect(function()
+        local success, link = pcall(function()
+            return game:HttpGet(config.LinkUrl)
+        end)
+        if success then
+            setclipboard(link)
+            GetBtn.Text = "Copied!"
+            task.wait(2)
+            GetBtn.Text = "Get Key"
+        end
+    end)
+end
 
 -- [ MASTER CREATION FUNCTION ]
 function Library:CreateWindow(UiTitle)
