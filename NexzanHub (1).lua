@@ -4423,43 +4423,6 @@ local function buildWatermark(ctx)
 		Creator.New("UIScale", { Scale = 1 }),
 	})
 
-	-- Drag (PC & Mobile)
-	local dragging, dragStart, startPos
-	local hit = Creator.New("TextButton", {
-		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundTransparency = 1,
-		Text = "",
-		ZIndex = 5,
-		Parent = wmFrame,
-	})
-	Util.Bin.Connect(hit.InputBegan, function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			dragging = true
-			dragStart = input.Position
-			startPos = wmFrame.Position
-		end
-	end)
-	Util.Bin.Connect(UserInputService.InputChanged, function(input)
-		if
-			dragging
-			and (
-				input.UserInputType == Enum.UserInputType.MouseMovement
-				or input.UserInputType == Enum.UserInputType.Touch
-			)
-		then
-			local delta = input.Position - dragStart
-			wmFrame.Position =
-				UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-		end
-	end)
-	Util.Bin.Connect(UserInputService.InputEnded, function(input)
-		if
-			input.UserInputType == Enum.UserInputType.MouseButton1
-			or input.UserInputType == Enum.UserInputType.Touch
-		then
-			dragging = false
-		end
-	end)
 end
 
 local function watermarkText(ctx)
