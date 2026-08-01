@@ -4975,14 +4975,13 @@ local Meta = {
 	Version = NEXZAN_VERSION,
 	Channel = NEXZAN_CHANNEL,
 	Author = "Nexzan",
-	Discord = "https://discord.gg/nexzan",
-	Website = "https://nexzan.dev",
-	Github = "https://github.com/nexzan/nexzan-hub",
-	Youtube = "https://youtube.com/@nexzan",
-	Donate = "https://saweria.co/nexzan",
-	Support = "https://discord.gg/nexzan",
-	Tutorial = "https://nexzan.dev/docs",
-}
+	Discord = "https://discord.gg/5HAPKkFAr",
+	Website = "https://scriptvaultnexzanv2www.netlify.app/",
+	Github = "Private",
+	Youtube = "https://www.youtube.com/@Nexzan_hub",
+	Donate = "Don't have a Donate Link, Just Support",
+	Support = "https://discord.gg/5HAPKkFAr",
+	Tutorial = "No Gays Tutorial",
 Developer.Meta = Meta
 
 function Developer.IsDeveloper(list)
@@ -5590,6 +5589,7 @@ function Developer.CreateCatalogTab(ctx)
 				"• Watermark modern (FPS, Ping, Memory, dll)",
 				"• Notification: Progress, Interactive, Button, Queue, Loading",
 				"• Window: Remember Position & Size (drag & resize tetap milik WindUI)",
+				"• Main Features (Script Fitur)",
 			}, "\n"),
 		})
 
@@ -5618,18 +5618,18 @@ function Developer.CreateCatalogTab(ctx)
 
 		tab:Section({ Title = "FAQ" })
 		tab:Paragraph({
-			Title = "Apakah script lama tetap kompatibel?",
-			Desc = "Ya. Extension hanya menambah fitur. Semua fungsi, class, struktur Window/Tab/Theme/Config WindUI tidak diubah sama sekali.",
+			Title = "Does the Script Still Work?",
+			Desc = "If not, please report to the official Nexzan Hub Discord.",
 		})
 		tab:Paragraph({
-			Title = "Apakah source WindUI diedit?",
-			Desc = "Tidak. main.lua dimuat lewat loadstring apa adanya, tanpa deobfuscate dan tanpa modifikasi.",
+			Title = "Is there a problem with the UI?",
+			Desc = "If not, please report to the official Nexzan Hub Discord.",
 		})
 
 		tab:Section({ Title = "Change Log" })
 		tab:Paragraph({
 			Title = "v1.0.0",
-			Desc = "Rilis pertama Premium Edition: header bar, search, players, settings, developer, watermark, notification extras, window enhancements.",
+			Desc = "Latest UI Release Modified WindUI.",
 		})
 
 		tab:Section({ Title = "Known Bugs" })
