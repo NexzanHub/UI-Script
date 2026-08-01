@@ -31,7 +31,7 @@
 
 local NEXZAN_NAME = "Nexzan Hub"
 local NEXZAN_VERSION = "1.0.0"
-local NEXZAN_CHANNEL = "Premium Edition"
+local NEXZAN_CHANNEL = "Nexzan Hub"
 local NEXZAN_FOLDER = "WindUI/NexzanHub"
 
 -- Whitelist Developer (UserId). Ikon 🛠️ Developer HANYA muncul untuk UserId ini.
